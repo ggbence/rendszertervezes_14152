@@ -23,6 +23,7 @@ namespace uno
         public Match()
         {
             playersArrayList=new ArrayList();
+            actualPlayer = 0;
         }
 
         public void RunMatch()
@@ -52,37 +53,36 @@ namespace uno
                 Console.WriteLine("Adding "+user.handCards.NumberOfCards()+" cards to player " + user.connectionId);
                 ConnectionManager.Instance.SendMessage(new Message<HandCards> {Code = "updateCards", Objects = user.handCards},user.connectionId);
             }
-
-
             throwDeck.cardsList.Add(drawDeck.getRandomCards(1)[0]);
+            round();
 
 
+        }
 
-            int i = 0;
-            while (true) //change me
-            {
-                User user = (User)playersArrayList[i];
-                HandleClient hc = (HandleClient)ConnectionManager.Instance.clientsList[user.connectionId];
-                hc.waitForData = true;
-                ConnectionManager.Instance.SendMessage(new Message<Card> {Code="showThrowDeck", Objects = throwDeck.getTopCard()},user.connectionId);
-                while (hc.waitForData) Thread.Sleep(500);
-                var m = hc.LastMessage;
-                Card card = ((JObject) m.Objects).ToObject<Card>();
-                throwDeck.cardsList.Add(card);
-                
-                
+        private void round()
+        {
+            User user = (User)playersArrayList[actualPlayer];
+            HandleClient hc = (HandleClient)ConnectionManager.Instance.clientsList[user.connectionId];
+            hc.waitForData = true;
+            hc.NotifyMatch = this;
+            ConnectionManager.Instance.SendMessage(new Message<Card> { Code = "showThrowDeck", Objects = throwDeck.getTopCard() }, user.connectionId);
+            
+            
+        }
 
+        public void roundContinue()
+        {
+            User user = (User)playersArrayList[actualPlayer];
+            HandleClient hc = (HandleClient)ConnectionManager.Instance.clientsList[user.connectionId];
+            var m = hc.LastMessage;
+            Card card = ((JObject)m.Objects).ToObject<Card>();
+            throwDeck.cardsList.Add(card);
 
-
-
-
-                if (reverse) i--;
-                else i++;
-                if (i == -1) i = playersArrayList.Count-1;
-                if (i == playersArrayList.Count) i = 0;
-            }
-
-
+            if (reverse) actualPlayer--;
+            else actualPlayer++;
+            if (actualPlayer == -1) actualPlayer = playersArrayList.Count - 1;
+            if (actualPlayer == playersArrayList.Count) actualPlayer = 0;
+            round();
         }
         
     }

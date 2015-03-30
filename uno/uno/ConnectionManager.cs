@@ -96,6 +96,7 @@ namespace uno
         private NetworkStream clientStream { get; set; }
         public Message<object> LastMessage { get; set; }
         public bool waitForData { get; set; }
+        public Match NotifyMatch { get; set; }
 
         public void handle()
         {
@@ -128,6 +129,11 @@ namespace uno
                         Console.WriteLine(connectionId + " wants to play...");
                         break;
                 }
+                if (waitForData)
+                {
+                    waitForData = false;
+                    NotifyMatch.roundContinue();
+                }
             }
 
 
@@ -144,7 +150,7 @@ namespace uno
             Console.WriteLine(line);
             var stringReader = new StringReader(line);
             var js = new JsonSerializer();
-            if (waitForData) waitForData = false;
+            
             return (Message<object>) js.Deserialize(stringReader, typeof (Message<object>));
         }
     }
