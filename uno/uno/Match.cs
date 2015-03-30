@@ -54,6 +54,7 @@ namespace uno
                 ConnectionManager.Instance.SendMessage(new Message<HandCards> {Code = "updateCards", Objects = user.handCards},user.connectionId);
             }
             throwDeck.cardsList.Add(drawDeck.getRandomCards(1)[0]);
+            actualPlayer = 0;
             round();
 
 
