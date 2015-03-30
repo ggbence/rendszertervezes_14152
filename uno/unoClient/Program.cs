@@ -10,8 +10,9 @@ namespace unoClient
     {
         static void Main(string[] args)
         {
-            ConnectionManager cm = new ConnectionManager();
-            Console.ReadLine();
+            ConnectionManager cm = ConnectionManager.Instance;
+            cm.ConnectToServer();
+            ClientGame.Instance.Start();
         }
     }
 }
