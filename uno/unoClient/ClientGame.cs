@@ -99,9 +99,23 @@ namespace unoClient
             Console.WriteLine();
             Console.WriteLine("ThrowDeck Top: "+topCard.ToString());
             var select = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine(select);
-            ConnectionManager.Instance.SendMessage(new Message<Card> {Code="throwCard",Objects = GamerUser.handCards.TakeCard(select)});
+            ConnectionManager.Instance.SendMessage(new Message<Card> {Code="throwCard",Objects = GamerUser.handCards.TakeCard(select,false)});
 
+        }
+
+        public void ShowOthersCard(List<KeyValuePair<string, int>> count)
+        {
+            Console.Clear();
+            foreach (var other in count)
+            {
+                Console.WriteLine(other.Key+": "+other.Value);
+            }
+        }
+
+        public void ShowNotValid()
+        {
+            Console.Clear();
+            Console.WriteLine("Not a valid move!");
         }
     }
 }

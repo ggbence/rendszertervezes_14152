@@ -21,5 +21,12 @@ namespace uno
         {
             return Color + " " + Number;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof (Card)) return base.Equals(obj);
+            var c = (Card) obj;
+            return ((c.Color == this.Color) && (c.Number == this.Number));
+        }
     }
 }

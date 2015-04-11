@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters;
+using Newtonsoft.Json.Linq;
 using uno;
 
 namespace unoClient
@@ -107,24 +108,36 @@ namespace unoClient
                     StringReader stringReader = new StringReader(line);
 
                     var m = (Message<object>) js.Deserialize(stringReader, typeof (Message<object>));
-                    var obj = (Newtonsoft.Json.Linq.JObject) m.Objects;
+                    var obj = m.Objects;
 
                     switch (m.Code)
                     {
                         case "updateUser":
-                            User newUser = obj.ToObject<User>();
+                            User newUser = ((JObject)obj).ToObject<User>();
                             ClientGame.Instance.SetUser(newUser);
                             break;
 
                         case "updateCards":
-                            HandCards newHandCards = obj.ToObject<HandCards>();
+                            HandCards newHandCards = ((JObject)obj).ToObject<HandCards>();
                             ClientGame.Instance.SetCards(newHandCards);
                             break;
 
                         case "showThrowDeck":
-                            Card topCard = obj.ToObject<Card>();
+                            Card topCard = ((JObject)obj).ToObject<Card>();
                             ClientGame.Instance.ShowCards();
                             ClientGame.Instance.ShowThrowDeck(topCard);
+                            break;
+
+                        case "notNow":
+
+                            break;
+
+                        case "showNumerOfCards":
+                            List<KeyValuePair<string, int>> count = ((JArray)obj).ToObject<List<KeyValuePair<string, int>>>();
+                            ClientGame.Instance.ShowOthersCard(count);
+                            break;
+                        case "notValid":
+                            ClientGame.Instance.ShowNotValid();
                             break;
 
 

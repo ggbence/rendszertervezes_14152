@@ -15,7 +15,7 @@ namespace uno
 
 
         private List<User> usersArrayList;
-        private readonly int startNumber = 1;
+        private readonly int startNumber = 4;
 
         public static Lobby Instance
         {

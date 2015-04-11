@@ -28,11 +28,13 @@ namespace uno
             return cardsList.Count;
         }
 
-        public Card TakeCard(int number)
+        public Card TakeCard(int number, bool remove=true)
         {
-            Card ret = cardsList[number];
-            cardsList.RemoveAt(number);
+            var ret = cardsList[number];
+            if (remove) cardsList.RemoveAt(number);
             return ret;
         }
+
+        
     }
 }

@@ -65,11 +65,12 @@ namespace uno
             }
 
             //adding black cards
+            /*
             for (int i = 0; i < 4; i++)
             {
                 cardsList.Add(new Card(0, "black"));
                 cardsList.Add(new Card(1, "black"));
-            }
+            }*/
         }
         
         

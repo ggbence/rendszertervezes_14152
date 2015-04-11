@@ -89,15 +89,14 @@ namespace uno
         {
             connectionId = cId;
             this.clientSocket = clientSocket;
-            waitForData = false;
+            Notify = false;
         }
 
         public TcpClient clientSocket { get; set; }
         private NetworkStream clientStream { get; set; }
         public Message<object> LastMessage { get; set; }
-        public bool waitForData { get; set; }
-        public Match NotifyMatch { get; set; }
-
+        public Match NotifyMatch;
+        public bool Notify;
         public void handle()
         {
             var cThread = new Thread(start);
@@ -120,7 +119,6 @@ namespace uno
             while (true)
             {
                 var m = ReadLine();
-                LastMessage = m;
                 var obj = (JObject) m.Objects;
                 switch (m.Code)
                 {
@@ -128,11 +126,12 @@ namespace uno
                         Game.Instance.UserToLobby(connectionId);
                         Console.WriteLine(connectionId + " wants to play...");
                         break;
-                }
-                if (waitForData)
-                {
-                    waitForData = false;
-                    NotifyMatch.roundContinue();
+                    default:
+                        if (Notify)
+                        {
+                            NotifyMatch.Notify(m,connectionId);
+                        }
+                        break;
                 }
             }
 
