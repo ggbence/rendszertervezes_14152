@@ -1,0 +1,385 @@
+<Project>
+  <Name>uno</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>uno.exe</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Card</Name>
+        <Access>Public</Access>
+        <Location left="579" top="88" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Number { get; set; }</Member>
+        <Member type="Property">public String Color { get; set; }</Member>
+        <Member type="Constructor">public Card(Int32 pNumber, String pColor)</Member>
+        <Member type="Method">public override String ToString()</Member>
+        <Member type="Method">public override Boolean Equals(Object obj)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ConnectionManager</Name>
+        <Access>Public</Access>
+        <Location left="860" top="810" />
+        <Size width="162" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 idCounter</Member>
+        <Member type="Field">private TcpListener serverSocket</Member>
+        <Member type="Field">private ConnectionManager instance</Member>
+        <Member type="Field">private Object syncRoot</Member>
+        <Member type="Property">public static ConnectionManager Instance { get; }</Member>
+        <Member type="Constructor">private ConnectionManager()</Member>
+        <Member type="Constructor">static ConnectionManager()</Member>
+        <Member type="Method">public Void SendMessage(Message&lt;T&gt; m, Int32 connectionId)</Member>
+        <Member type="Method">public Void start()</Member>
+        <Modifier>Sealed</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HandleClient</Name>
+        <Access>Internal</Access>
+        <Location left="1050" top="499" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Int32 connectionId</Member>
+        <Member type="Field">public Match NotifyMatch</Member>
+        <Member type="Field">public Boolean Notify</Member>
+        <Member type="Property">public TcpClient clientSocket { get; set; }</Member>
+        <Member type="Property">private NetworkStream clientStream { get; set; }</Member>
+        <Member type="Constructor">public HandleClient(Int32 cId, TcpClient clientSocket)</Member>
+        <Member type="Method">public Void handle()</Member>
+        <Member type="Method">private Void start()</Member>
+        <Member type="Method">public Message&lt;Object&gt; ReadLine()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Deck</Name>
+        <Access>Public</Access>
+        <Location left="579" top="404" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">protected Deck()</Member>
+        <Member type="Method">public Void AddCards(List&lt;Card&gt; c)</Member>
+        <Member type="Method">public Int32 NumberOfCards()</Member>
+        <Member type="Method">public Card TakeCard(Int32 number, Boolean remove = True)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DrawDeck</Name>
+        <Access>Internal</Access>
+        <Location left="846" top="499" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public DrawDeck()</Member>
+        <Member type="Method">public Void Shuffle()</Member>
+        <Member type="Method">public List&lt;Card&gt; getRandomCards(Int32 numberOfCards)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Game</Name>
+        <Access>Public</Access>
+        <Location left="1256" top="499" />
+        <Size width="162" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Game instance</Member>
+        <Member type="Field">private static Object syncRoot</Member>
+        <Member type="Property">public static Game Instance { get; }</Member>
+        <Member type="Constructor">private Game()</Member>
+        <Member type="Constructor">static Game()</Member>
+        <Member type="Method">public Void AddUser(User pUser)</Member>
+        <Member type="Method">public Void start()</Member>
+        <Member type="Method">public Void UserToLobby(Int32 connectionId)</Member>
+        <Member type="Method">public Void AddMatch(Match m)</Member>
+        <Modifier>Sealed</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HandCards</Name>
+        <Access>Public</Access>
+        <Location left="328" top="404" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public HandCards()</Member>
+        <Member type="Method">public Void DeleteCards()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Lobby</Name>
+        <Access>Public</Access>
+        <Location left="1151" top="43" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Int32 startNumber</Member>
+        <Member type="Field">private Lobby instance</Member>
+        <Member type="Field">private static Object syncRoot</Member>
+        <Member type="Property">public static Lobby Instance { get; }</Member>
+        <Member type="Constructor">private Lobby()</Member>
+        <Member type="Constructor">static Lobby()</Member>
+        <Member type="Method">public Void AddUser(User pUser)</Member>
+        <Member type="Method">private Void MakeMatch()</Member>
+        <Modifier>Sealed</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Match</Name>
+        <Access>Public</Access>
+        <Location left="860" top="35" />
+        <Size width="162" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private DrawDeck drawDeck</Member>
+        <Member type="Field">private ThrowDeck throwDeck</Member>
+        <Member type="Property">public Int32 actualPlayer { get; set; }</Member>
+        <Member type="Property">public Boolean reverse { get; set; }</Member>
+        <Member type="Constructor">public Match()</Member>
+        <Member type="Method">public Void RunMatch()</Member>
+        <Member type="Method">public Void AddPlayer(User player)</Member>
+        <Member type="Method">private Void start()</Member>
+        <Member type="Method">private Void round()</Member>
+        <Member type="Method">private Void nextPlayer()</Member>
+        <Member type="Method">public Void Notify(Message&lt;Object&gt; message, Int32 connectionId)</Member>
+        <Member type="Method">private Boolean isValid(Card card)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Message&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1128" top="810" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public T Objects { get; set; }</Member>
+        <Member type="Property">public String Code { get; set; }</Member>
+        <Member type="Constructor">public Message()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ThrowDeck</Name>
+        <Access>Internal</Access>
+        <Location left="563" top="691" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ThrowDeck()</Member>
+        <Member type="Method">public Card getTopCard()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>User</Name>
+        <Access>Public</Access>
+        <Location left="361" top="35" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 connectionId { get; set; }</Member>
+        <Member type="Property">public Oid Id { get; private set; }</Member>
+        <Member type="Property">public String nickName { get; set; }</Member>
+        <Member type="Constructor">public User()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="4" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="6" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="1" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>886</X>
+          <Y>1086</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>instance</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="2" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>NotifyMatch</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="5">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1380</X>
+          <Y>788</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>instance</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="7" second="7">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1276</X>
+          <Y>298</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>instance</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>901</X>
+          <Y>358</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>drawDeck</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>throwDeck</StartRole>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="1">
+        <Label>uses</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="5" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="11" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>440</X>
+          <Y>379</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="1" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="3" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="1" second="9">
+        <Label>sends</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="7" second="8">
+        <Label>creates</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="11">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>835</X>
+          <Y>78</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1..4</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="7" second="11">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1230</X>
+          <Y>16</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>324</X>
+          <Y>89</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="8">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1272</X>
+          <Y>474</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1047</X>
+          <Y>314</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="11">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1443</X>
+          <Y>574</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>441</X>
+          <Y>10</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

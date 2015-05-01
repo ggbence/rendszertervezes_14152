@@ -94,7 +94,6 @@ namespace uno
 
         public TcpClient clientSocket { get; set; }
         private NetworkStream clientStream { get; set; }
-        public Message<object> LastMessage { get; set; }
         public Match NotifyMatch;
         public bool Notify;
         public void handle()
@@ -119,7 +118,7 @@ namespace uno
             while (true)
             {
                 var m = ReadLine();
-                var obj = (JObject) m.Objects;
+                
                 switch (m.Code)
                 {
                     case "startGame":

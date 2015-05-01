@@ -14,8 +14,8 @@ namespace uno
         private static object syncRoot = new Object();
 
 
-        private List<User> usersArrayList;
-        private readonly int startNumber = 4;
+        private List<User> userList;
+        private readonly int startNumber = 2;
 
         public static Lobby Instance
         {
@@ -36,13 +36,13 @@ namespace uno
 
         private Lobby()
         {
-            usersArrayList=new List<User>();
+            userList = new List<User>();
         }
 
         public void AddUser(User pUser)
         {
-            usersArrayList.Add(pUser);
-            if (usersArrayList.Count == startNumber)
+            userList.Add(pUser);
+            if (userList.Count == startNumber)
             {
                 MakeMatch();
             }
@@ -52,15 +52,15 @@ namespace uno
 
         private void MakeMatch()
         {
-            Console.WriteLine("A new match is going to be created with "+usersArrayList.Count+" players ...");
+            Console.WriteLine("A new match is going to be created with " + userList.Count + " players ...");
             Match m = new Match
             {
-                actualPlayer = ((User) usersArrayList[0]).connectionId,
+                actualPlayer = ((User)userList[0]).connectionId,
                 reverse = false
             };
-            foreach (User player in usersArrayList) { m.AddPlayer(player); }
+            foreach (User player in userList) { m.AddPlayer(player); }
 
-            usersArrayList.Clear();
+            userList.Clear();
             m.RunMatch();
             Game.Instance.AddMatch(m);
         }

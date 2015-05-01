@@ -13,7 +13,6 @@ namespace uno
 
         private Hashtable usersHashtable;
         private List<Match> matchesList;
-        public Hashtable userFinder;
 
 
 
@@ -42,7 +41,6 @@ namespace uno
         {
             usersHashtable = new Hashtable();
             matchesList=new List<Match>();
-            userFinder=new Hashtable();
         }
 
         public void AddUser(User pUser)

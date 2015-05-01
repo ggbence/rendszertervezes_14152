@@ -67,7 +67,7 @@ namespace unoClient
             var js = new JsonSerializer();
             js.Serialize(stringWriter, m);
             line = stringWriter.ToString();
-            Console.WriteLine(line);
+            //Console.WriteLine(line);
             sw.WriteLine(line);
             sw.Flush();
         }
@@ -104,7 +104,7 @@ namespace unoClient
             while (true)
             {
                     line = sr.ReadLine();
-                    Console.WriteLine("Message :"+line);
+                    //Console.WriteLine("Message :"+line);
                     StringReader stringReader = new StringReader(line);
 
                     var m = (Message<object>) js.Deserialize(stringReader, typeof (Message<object>));
@@ -123,7 +123,7 @@ namespace unoClient
                             break;
 
                         case "showThrowDeck":
-                            Card topCard = ((JObject)obj).ToObject<Card>();
+                            string topCard = obj.ToString();
                             ClientGame.Instance.ShowCards();
                             ClientGame.Instance.ShowThrowDeck(topCard);
                             break;
@@ -139,6 +139,25 @@ namespace unoClient
                         case "notValid":
                             ClientGame.Instance.ShowNotValid();
                             break;
+                        case "gotSkipped":
+                            ClientGame.Instance.GotSkipped();
+                            break;
+                        case "reversed":
+                            ClientGame.Instance.Reversed();
+                            break;
+                        case "gotPlus2":
+                            ClientGame.Instance.GotPlus(2);
+                            break;
+                        case "gotPlus4":
+                            ClientGame.Instance.GotPlus(4);
+                            break;
+                        case "selectColor":
+                            ClientGame.Instance.SelectColor();
+                            break;
+                        case "unoPenalty":
+                            ClientGame.Instance.GotPenalty();
+                            break;
+
 
 
 

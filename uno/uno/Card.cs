@@ -19,7 +19,19 @@ namespace uno
 
         public override string ToString()
         {
-            return Color + " " + Number;
+            string strNum;
+            strNum = Number.ToString();
+            if (Number == 10) strNum = "skip";
+            if (Number == 11) strNum = "reverse";
+            if (Number == 12) strNum = "plus2";
+
+            if (Color == "black")
+            {
+                if (Number == 0) strNum = "select";
+                else strNum = "select+4";
+            }
+
+            return Color + " " + strNum;
         }
 
         public override bool Equals(object obj)

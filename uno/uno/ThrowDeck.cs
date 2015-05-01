@@ -20,6 +20,17 @@ namespace uno
             return cardsList.Last();
         }
 
+        public List<Card> GetOtherCards()
+        {
+            var ret = new List<Card>();
+            for (int i = 0; i < cardsList.Count - 1; i++)
+            {
+                ret.Add(cardsList[i]);
+                cardsList.RemoveAt(i);
+            }
+            return ret;
+        }
+
 
     }
 }

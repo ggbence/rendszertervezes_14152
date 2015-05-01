@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace uno
 {
+    class NoMoreCardsException : Exception
+    {
+        public override string Message
+        {
+            get { return "Out of cards"; }
+        }
+    };
+    
     class DrawDeck : Deck
     {
         public DrawDeck()
@@ -25,7 +33,7 @@ namespace uno
                 cardsList.Add(new Card(i, "yellow"));
   
             }
-
+            /*
             //adding green cards
             for (int i = 0; i <= 12; i++)
             {
@@ -37,6 +45,10 @@ namespace uno
             {
                 cardsList.Add(new Card(i, "blue"));
             }
+
+
+
+
 
 
             //adding red cards
@@ -65,12 +77,14 @@ namespace uno
             }
 
             //adding black cards
-            /*
+
             for (int i = 0; i < 4; i++)
             {
                 cardsList.Add(new Card(0, "black"));
                 cardsList.Add(new Card(1, "black"));
-            }*/
+            }
+            */
+
         }
         
         
@@ -90,10 +104,12 @@ namespace uno
 
         public List<Card> getRandomCards(int numberOfCards)
         {
+            if (numberOfCards>cardsList.Count) throw new NoMoreCardsException();
             var ret = new List<Card>();
             for (int i = 0; i < numberOfCards; i++)
             {
                 ret.Add(cardsList[0]);
+                cardsList.RemoveAt(0);
                 Shuffle();
             }
             return ret;
