@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uno", "uno\uno.csproj", "{30DAAE26-46E7-413C-9447-3FC83BDDD7E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unoClient", "unoClient\unoClient.csproj", "{395CFD10-A268-4C3F-A109-564E52E455B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unoClientForm", "unoClientForm\unoClientForm.csproj", "{99021D34-F00A-4B24-93C7-E269063CF554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{395CFD10-A268-4C3F-A109-564E52E455B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{395CFD10-A268-4C3F-A109-564E52E455B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{395CFD10-A268-4C3F-A109-564E52E455B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99021D34-F00A-4B24-93C7-E269063CF554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99021D34-F00A-4B24-93C7-E269063CF554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99021D34-F00A-4B24-93C7-E269063CF554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99021D34-F00A-4B24-93C7-E269063CF554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

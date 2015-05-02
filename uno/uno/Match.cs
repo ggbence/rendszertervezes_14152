@@ -264,6 +264,23 @@ namespace uno
                 new Message<HandCards> { Code = "updateCards", Objects = user.handCards },
                 user.connectionId
                 );
+
+
+            //won
+            if (user.handCards.cardsList.Count == 0)
+            {
+                ConnectionManager.Instance.SendMessage(
+                    new Message<object> { Code = "won", Objects = new object()}, user.connectionId);
+
+                foreach (var other in PlayersList.Where(other => other.connectionId != user.connectionId))
+                {
+                    ConnectionManager.Instance.SendMessage(
+                        new Message<string> {Code = "lost", Objects = user.connectionId.ToString()},other.connectionId);
+                }
+                return;
+            }
+
+
             if (card.Number <= 9 && card.Color != "black")
             {
                 //not special card

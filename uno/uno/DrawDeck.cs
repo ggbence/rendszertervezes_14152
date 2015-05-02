@@ -33,7 +33,7 @@ namespace uno
                 cardsList.Add(new Card(i, "yellow"));
   
             }
-            /*
+            
             //adding green cards
             for (int i = 0; i <= 12; i++)
             {
@@ -83,7 +83,7 @@ namespace uno
                 cardsList.Add(new Card(0, "black"));
                 cardsList.Add(new Card(1, "black"));
             }
-            */
+            
 
         }
         

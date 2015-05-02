@@ -15,7 +15,7 @@ namespace uno
 
 
         private List<User> userList;
-        private readonly int startNumber = 2;
+        private readonly int startNumber = 3;
 
         public static Lobby Instance
         {
